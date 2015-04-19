@@ -11,19 +11,19 @@ Prerequisites
 Set up
 --------
 
-1. Install paket.
+### Install paket.
 
 ```shell
 mono paket.bootstrapper.exe
 ```
 
-2. Install dependencies.
+### Install dependencies.
 
 ```shell
 mono paket.exe
 ```
 
-3. Run!
+### Run!
 
 ```shell
 ./run.sh
