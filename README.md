@@ -20,7 +20,7 @@ mono paket.bootstrapper.exe
 ### Install dependencies.
 
 ```shell
-mono paket.exe
+mono paket.exe install
 ```
 
 ### Run!
