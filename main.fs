@@ -5,6 +5,12 @@ type Tree<'a> =
   | Node of Tree<'a> * 'a * Tree<'a>
   | Leaf of 'a
 
+let rec invertTree tree =
+  match tree with
+    | Leaf value -> Leaf value
+    | Node (leftTree, value, rightTree) ->
+        Node (invertTree rightTree, value, invertTree leftTree)
+
 let sum num =
   [1..num] |> List.sum
 
@@ -125,6 +131,7 @@ HWassert.should ((max [1;9;10]) = 10)
 HWassert.shouldEqual (max [11;9]) 11
 
 HWassert.shouldEqual (sumTree (Node (Node (Leaf 1, 3, Leaf 2), 7, Leaf 4))) 17
+HWassert.shouldEqual (invertTree (Node (Node (Leaf 1, 3, Leaf 2), 7, Leaf 4))) (Node (Leaf 4, 7, Node (Leaf 2, 3, Leaf 1)))
 HWassert.shouldEqual (depth (Node (Node (Leaf 1, 3, Leaf 2), 7, Leaf 4))) 2
 HWassert.shouldEqual (binSearch (Node (Node (Leaf 1, 3, Leaf 2), 7, Leaf 4)) 2) true
 HWassert.shouldEqual (binSearch (Node (Node (Leaf 1, 3, Leaf 2), 7, Leaf 4)) 11) false
@@ -145,16 +152,16 @@ HWassert.shouldEqual ((compose (fun x -> x + 1) (fun y -> y * 10)) 10) 110
 //let curriedMultiple10 = curry multiplyUC 10
 //HWassert.shouldEqual (curriedMultiple10 3) 30
 //HWassert.shouldEqual (uncurry (fun x y -> x * y) (3, 4)) 12
-let add1 x = x + 1
-HWassert.shouldEqual ((multifun add1 1) 1) 2
-HWassert.shouldEqual ((multifun add1 3) 1) 4
-HWassert.shouldEqual ((multifun (fun x -> x + 1) 3) 1) 4
-HWassert.shouldEqual (ltake [1; 2; 3] 2) [1; 2]
-HWassert.shouldEqual (ltake [1; 2; 3] 5) [1; 2; 3]
-HWassert.shouldEqual (ltake ["s";"t";"r";"i";"k";"e";"r";"z" ] 5) ["s";"t";"r";"i";"k"]
-HWassert.shouldEqual (lall (fun x -> x > 0) [1; 2; 3]) true
-HWassert.shouldEqual (lmap (fun x -> x + 1) [1; 2; 3]) [2; 3; 4]
-HWassert.shouldEqual (lrev [1; 2; 3; 4]) [4; 3; 2; 1]
-HWassert.shouldEqual (lzip (["Rooney";"Park";"Scholes";"C.Ronaldo"], [8;13;18;7;10;12])) [("Rooney",8);("Park",13);("Scholes",18);("C.Ronaldo",7)]
-HWassert.shouldEqual (split [1; 3; 5; 7; 9; 11]) ([1; 5; 9], [3; 7; 11])
+//let add1 x = x + 1
+//HWassert.shouldEqual ((multifun add1 1) 1) 2
+//HWassert.shouldEqual ((multifun add1 3) 1) 4
+//HWassert.shouldEqual ((multifun (fun x -> x + 1) 3) 1) 4
+//HWassert.shouldEqual (ltake [1; 2; 3] 2) [1; 2]
+//HWassert.shouldEqual (ltake [1; 2; 3] 5) [1; 2; 3]
+//HWassert.shouldEqual (ltake ["s";"t";"r";"i";"k";"e";"r";"z" ] 5) ["s";"t";"r";"i";"k"]
+//HWassert.shouldEqual (lall (fun x -> x > 0) [1; 2; 3]) true
+//HWassert.shouldEqual (lmap (fun x -> x + 1) [1; 2; 3]) [2; 3; 4]
+//HWassert.shouldEqual (lrev [1; 2; 3; 4]) [4; 3; 2; 1]
+//HWassert.shouldEqual (lzip (["Rooney";"Park";"Scholes";"C.Ronaldo"], [8;13;18;7;10;12])) [("Rooney",8);("Park",13);("Scholes",18);("C.Ronaldo",7)]
+//HWassert.shouldEqual (split [1; 3; 5; 7; 9; 11]) ([1; 5; 9], [3; 7; 11])
 //HWassert.shouldEqual (cartprod [1;2] [3;4;5]) [(1,3); (1,4); (1,5); (2,3); (2,4); (2,5)]
